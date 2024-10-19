@@ -1,0 +1,642 @@
+/******************************************************************************
+
+Singly Linked List (All the operations)
+
+1.Create the Singly Linked List
+2.Printing the Singly Linked List after creation
+3.Insert at the begining of Singly Linked List
+4.Insert at the end of Singly Linked List
+5.Insert at any position (before the specified position)
+6.Insert at any position (after the specified position)
+7.delete at the begining of Singly Linked List
+8.delete at the end of Singly Linked List
+9.delete at any position of Singly Linked List
+10.Reversing the Singly Linked List
+11.Reversing the element from the particular position
+12.Swapping two elements in the List from the position given
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h> 
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+struct node *temp;
+
+struct node* create_singly_linked_list(struct node* head)
+{
+    struct node *newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter a data to add in the singly Linked list: ");
+    scanf("%d",&newnode->data);
+    newnode->next = 0;
+    
+    if(head==0)
+    {
+        head = temp = newnode;
+    }
+    else
+    {
+        temp->next = newnode;
+        temp       = newnode;
+    }
+    return head;
+}
+
+int traverse_the_singly_linked_list(struct node *head)
+{
+    struct node *temp = head;
+    int count = 0;
+    
+    if(head==0)
+    {
+        printf("No elements in the Singly Linked List...");
+    }
+    else
+    {
+        while(temp!=0)
+        {
+            printf("%d ",temp->data);
+            temp = temp->next;
+            count++;
+        }
+    }
+    printf("\nThe Number of elements in the Singly Linked List is: %d\n",count);
+    return count;
+}
+
+struct node* insert_at_the_begining(struct node* head)
+{
+    struct node *newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter a data to add in the singly Linked list: ");
+    scanf("%d",&newnode->data);
+    newnode->next = 0;
+    
+    if(head==0)
+    {
+        head = newnode;
+    }
+    else
+    {
+        newnode->next = head;
+        head          = newnode;
+    }
+    return head;
+}
+
+struct node* insert_at_the_end(struct node* head)
+{
+    struct node *temp = head;
+    struct node *newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter a data to add in the singly Linked list: ");
+    scanf("%d",&newnode->data);
+    newnode->next = 0;
+    
+    if(head==0)
+    {
+        head=newnode;
+    }
+    else
+    {
+        while(temp->next!=0)
+        {
+            temp = temp->next;
+        }
+        temp->next = newnode;
+    }
+    return head;
+}
+
+struct node* insert_at_any_position_bef(struct node *head, int count)
+{
+    if(head==0)
+    {
+        struct node *newnode = (struct node*)malloc(sizeof(struct node));
+        printf("Enter a data to add in the singly Linked list: ");
+        scanf("%d",&newnode->data);
+        newnode->next = 0;
+        
+        printf("\"No elements in the List, so it is the first node(No position required)\"\n");
+        head = newnode;
+    }
+    else
+    {
+        int pos, i=1;
+        printf("Enter the position where you want to add the node: ");
+        scanf("%d",&pos);
+        
+        if(pos<1 || pos>count)
+        {
+            printf("\"Invalid Position\"\n");
+        }
+        else if(pos == 1)
+        {
+            head = insert_at_the_begining(head);
+        }
+        else
+        {
+            struct node *newnode = (struct node*)malloc(sizeof(struct node));
+            printf("Enter a data to add in the singly Linked list: ");
+            scanf("%d",&newnode->data);
+            newnode->next = 0;
+            
+            struct node *temp = head;
+            while(i<pos-1)
+            {
+                temp = temp->next;
+                i++;
+            }
+            newnode->next = temp->next;
+            temp->next    = newnode;
+        }
+    }
+    return head;
+}
+
+
+struct node* insert_at_any_position_aft(struct node *head, int count)
+{
+    if(head==0)
+    {
+        struct node *newnode = (struct node*)malloc(sizeof(struct node));
+        printf("Enter a data to add in the singly Linked list: ");
+        scanf("%d",&newnode->data);
+        newnode->next = 0;
+        
+        printf("\"No elements in the List, so it is the first node(No position required)\"\n");
+        head = newnode;
+    }
+    else
+    {
+        int pos, i=1;
+        printf("Enter the position where you want to add the node: ");
+        scanf("%d",&pos);
+        
+        if(pos<1 || pos>count)
+        {
+            printf("\"Invalid Position\"\n");
+        }
+        else if(pos == count)
+        {
+            head = insert_at_the_end(head);
+        }
+        else
+        {
+            struct node *newnode = (struct node*)malloc(sizeof(struct node));
+            printf("Enter a data to add in the singly Linked list: ");
+            scanf("%d",&newnode->data);
+            newnode->next = 0;
+            
+            struct node *temp = head;
+            while(i<pos)
+            {
+                temp = temp->next;
+                i++;
+            }
+            newnode->next = temp->next;
+            temp->next    = newnode;
+        }
+    }
+    return head;
+}
+
+
+struct node* delete_at_the_begining(struct node *head)
+{
+    if(head==0)
+    {
+        printf("\"Nothing to delete. Because No nodes in the List\"\n");
+    }
+    else
+    {
+        struct node *temp=head;
+        if(head->next==0)
+        {
+            head=0;
+            free(temp);
+        }
+        else
+        {
+            head = head->next;
+            temp->next  = 0;
+            free(temp);
+        }
+    }
+    return head;
+}
+
+
+struct node* delete_at_the_end(struct node *head)
+{
+    if(head==0)
+    {
+        printf("\"Nothing to delete. Because No nodes in the List\"\n");
+    }
+    else
+    {
+        struct node *temp=head;
+        if(head->next==0)
+        {
+            head=0;
+            free(temp);
+        }
+        else
+        {
+            while(temp->next->next!=0)
+            {
+                temp = temp->next;
+            }
+            free(temp->next);
+            temp->next = 0;
+        }
+    }
+    return head;
+}
+
+
+struct node* delete_at_any_pos(struct node* head,int count)
+{
+    struct node *temp = head;
+    int pos;
+    printf("Enter the position where you want to delete the node: ");
+    scanf("%d",&pos);
+    
+    if(head==0)
+    {
+        printf("\"Nothing to delete. Because No nodes in the List\"\n");
+    }
+    else if(pos<1 || pos>count)
+    {
+        printf("\"Invalid Position\"\n"); 
+    }
+    else if(pos==1)
+    {
+        head = delete_at_the_begining(head);
+    }
+    else if(pos==count)
+    {
+        head = delete_at_the_end(head);
+    }
+    else
+    {
+        int pos; struct node *prev=0;
+        
+        int i=1;
+        
+        while(i<pos)
+        {
+            prev = temp;
+            temp = temp->next;
+        }
+        prev->next = temp->next;
+        temp->next = 0;
+        free(temp);
+    }
+    return head;
+}
+
+
+struct node* reverse_of_singly_Linked_List(struct node* head)
+{
+    if(head==0 || head->next==0)
+    {
+        return head;
+    }
+    else
+    {
+        struct node *prev=0, *current = head, *nextnode;
+        
+        while(current!=0)
+        {
+            nextnode = current->next;
+            current->next = prev;
+            prev          = current;
+            current       = nextnode;
+        }
+        head = prev;
+    }
+    return head;
+}
+
+
+struct node* reverse_of_singly_Linked_List_from_position(struct node* head,int count,int pos)
+{
+    if(head==0 || head->next==0)
+    {
+        return head;
+    }
+    else
+    {
+        if(pos<1 || pos>count)
+        {
+            printf("\"Invalid Position\"\n");
+        }
+        else if(pos==1)
+        {
+            head = reverse_of_singly_Linked_List(head);
+        }
+        else if(pos==count)
+        {
+            head = head;
+        }
+        else
+        {
+            int i=1;
+            struct node *temp=head, *prev, *current, *nextnode;
+            while(i<pos-1)
+            {
+                temp = temp->next;
+                i++;
+            }
+            prev = temp;
+            current = prev->next;
+            
+            while(current!=0)
+            {
+               nextnode = current->next;
+               current->next = prev;
+               prev          = current;
+               current       = nextnode;
+            }
+            temp->next->next = 0;
+            temp->next       = prev;
+        }
+    }
+    return head;
+}
+
+
+struct node* swap_of_two_elements_singly_Linked_List_from_position(struct node* head,int count,int pos)
+{
+   if(head==0 || head->next==0)
+    {
+        head = head;
+    }
+    else if(count==2)
+    {
+        head = reverse_of_singly_Linked_List(head);
+    }
+    else
+    {
+        if(pos<1 || pos>count)
+        {
+            printf("\"Invalid Position\"\n");
+        }
+        else
+        {
+            int i=1;
+            struct node *temp=head, *first, *second, *nextnode;
+            while(i<pos-1)
+            {
+                temp = temp->next;
+                i++;
+            }
+            first  = temp->next;
+            second = first->next;
+            nextnode = second->next;
+            
+            second->next = first;
+            first->next  = nextnode;
+            temp->next   = second;
+        }
+    }
+    return head;
+}
+
+
+int main()
+{
+    struct node *head = 0;
+    
+    
+    //1.Create the Singly Linked List
+    printf("---Creating Singly Linked List---\n");
+    
+    int create_singly_list;
+    printf("Press 1 to add first element in singly Linked list or zero: ");
+    scanf("%d",&create_singly_list);
+    
+    while(create_singly_list)
+    {
+      head = create_singly_linked_list(head);  
+      printf("Press 1 to add more element in singly Linked list or zero to end: ");
+      scanf("%d",&create_singly_list);
+    }
+    
+    
+    //2.Printing the Singly Linked List after creation
+    printf("\n---Printing the created Singly Linked List---\n");
+    
+    int no_of_elements = 0;
+    no_of_elements = traverse_the_singly_linked_list(head);
+    
+    
+    //3.Insert at the begining of Singly Linked List
+    printf("\n---Insert Element at the begining---\n");
+    
+    int insert_at_begining;
+    printf("Press 1 to add element at the begining: ");
+    scanf("%d",&insert_at_begining);
+    
+    while(insert_at_begining)
+    {
+        head = insert_at_the_begining(head);
+        
+        //Printing the Singly Linked List after insert at the begining
+        printf("---Printing the Singly Linked List after insertion at begining---\n");
+    
+        no_of_elements = traverse_the_singly_linked_list(head);
+        
+        printf("Press 1 to add more element at the begining: ");
+        scanf("%d",&insert_at_begining);
+    }
+    
+
+    //4.Insert at the end of Singly Linked List
+    printf("\n---Insert Element at the end---\n");
+    
+    int insert_at_end;
+    printf("Press 1 to add element at the end: ");
+    scanf("%d",&insert_at_end);
+    
+    while(insert_at_end)
+    {
+        head = insert_at_the_end(head);  
+        
+        //Printing the Singly Linked List after insert at the end
+        printf("---Printing the Singly Linked List after insertion at end---\n");
+    
+        no_of_elements = traverse_the_singly_linked_list(head);
+        
+        printf("Press 1 to add more element at the end: ");
+        scanf("%d",&insert_at_end);
+    }
+    
+    
+    //5.Insert at any position (before the specified position)
+    printf("\n---Insert any position (before the specified position)---\n");
+    
+    int insert_any_pos_bef;
+    printf("Press 1 to add element at any position (before): ");
+    scanf("%d",&insert_any_pos_bef);
+    
+    while(insert_any_pos_bef)
+    {
+        head = insert_at_any_position_bef(head,no_of_elements); 
+        
+        //Printing the Singly Linked List after insert at any position (before the specified position)
+        printf("---Printing the Singly Linked List after insertion at any position (before)---\n");
+        
+        no_of_elements = traverse_the_singly_linked_list(head);
+    
+        printf("Press 1 to add more element at any position (before): ");
+        scanf("%d",&insert_any_pos_bef);
+    }
+    
+    
+    //6.Insert at any position (after the specified position)
+    printf("\n---Insert any position (after the specified position)---\n");
+    
+    int insert_any_pos_aft;
+    printf("Press 1 to add element at any position (after): ");
+    scanf("%d",&insert_any_pos_aft);
+    
+    while(insert_any_pos_aft)
+    {
+        head = insert_at_any_position_aft(head,no_of_elements); 
+        
+        //Printing the Singly Linked List after insert at any position (after the specified position)
+        printf("---Printing the Singly Linked List after, insert at any position(after)---\n");
+        
+        no_of_elements = traverse_the_singly_linked_list(head);
+    
+        printf("Press 1 to add more element at any position (after): ");
+        scanf("%d",&insert_any_pos_aft);
+    }
+    
+    
+    //7.delete at the begining of Singly Linked List
+    printf("\n---Deleting Element at the begining---\n");
+    
+    int delete_at_begining;
+    printf("Press 1 to delete element at the begining: ");
+    scanf("%d",&delete_at_begining);
+    
+    while(delete_at_begining)
+    {
+        head = delete_at_the_begining(head);
+        
+        //Printing the Singly Linked List after deleting at the begining
+        printf("---Printing the Singly Linked List after deleting at begining---\n");
+    
+        no_of_elements = traverse_the_singly_linked_list(head);
+        
+        printf("Press 1 to delete next element at the begining: ");
+        scanf("%d",&delete_at_begining);
+    }
+    
+    
+    //8.delete at the end of Singly Linked List
+    printf("\n---Deleting Element at the end---\n");
+    
+    int delete_at_end;
+    printf("Press 1 to delete element at the end: ");
+    scanf("%d",&delete_at_end);
+    
+    while(delete_at_end)
+    {
+        head = delete_at_the_end(head);
+        
+        //Printing the Singly Linked List after deleting at the end
+        printf("---Printing the Singly Linked List after deleting at end---\n");
+    
+        no_of_elements = traverse_the_singly_linked_list(head);
+
+        printf("Press 1 to delete next element at the end: ");
+        scanf("%d",&delete_at_end);
+    }
+    
+    
+    //9.delete at any position of Singly Linked List
+    printf("\n---Deleting Element at any position---\n");
+    
+    int delete_at_pos;
+    printf("Press 1 to delete element at any position: ");
+    scanf("%d",&delete_at_pos);
+    
+    while(delete_at_pos)
+    {
+        head = delete_at_any_pos(head,no_of_elements);
+        
+        //Printing the Singly Linked List after deleting at any position
+        printf("---Printing the Singly Linked List after deleting at any position---\n");
+    
+        no_of_elements = traverse_the_singly_linked_list(head);
+
+        printf("Press 1 to delete next element at any position: ");
+        scanf("%d",&delete_at_pos);
+    }
+    
+    
+    //10.Reversing the Singly Linked List
+    printf("\n---Reversing the Singly Linked List---\n");
+    
+    printf("Elements Order before reversing the Linked List\n");
+    no_of_elements = traverse_the_singly_linked_list(head);
+    
+    head = reverse_of_singly_Linked_List(head);
+    
+    printf("Elements Order after reversing the Linked List\n");
+    no_of_elements = traverse_the_singly_linked_list(head);
+    
+    
+    //Again reversing to get initial state
+    head = reverse_of_singly_Linked_List(head); 
+    
+    printf("\nThis is the Linked List we have created till now(recovered)\n");
+    no_of_elements = traverse_the_singly_linked_list(head);
+    
+    
+    //11.Reversing the element from the particular position
+    printf("\n---Reversing the Singly Linked List from a particular position---\n");
+    
+    int pos;
+    printf("Enter the position where you want to start reverse the node: ");
+    scanf("%d",&pos);
+        
+    head = reverse_of_singly_Linked_List_from_position(head,no_of_elements,pos);
+    
+    printf("Elements Order after reversing the Linked List from particular position:\n");
+    no_of_elements = traverse_the_singly_linked_list(head);
+    
+    
+    //Again reversing to get initial state(for that position required)
+    head = reverse_of_singly_Linked_List_from_position(head,no_of_elements,pos);
+    
+    printf("\nThis is the Linked List we have created till now(recovered)\n");
+    no_of_elements = traverse_the_singly_linked_list(head);
+    
+    
+    //12.Swapping two elements in the List from the position given
+    printf("\n---Swapping two elements of the Singly Linked List from a given position---\n");
+    
+    int pos1;
+    printf("Enter the position where you want to start swap the node: ");
+    scanf("%d",&pos1);
+        
+    head = swap_of_two_elements_singly_Linked_List_from_position(head,no_of_elements,pos1);
+    
+    printf("Elements Order after swapping of two elements of the Linked List from given position:\n");
+    no_of_elements = traverse_the_singly_linked_list(head);
+    
+    
+    //Again swapping to get initial state(for that position required)
+    head = swap_of_two_elements_singly_Linked_List_from_position(head,no_of_elements,pos1);
+    
+    printf("\nThis is the Linked List we have created till now(recovered)\n");
+    no_of_elements = traverse_the_singly_linked_list(head);
+}
