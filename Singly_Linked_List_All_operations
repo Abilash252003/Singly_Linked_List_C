@@ -291,6 +291,7 @@ struct node* delete_at_any_pos(struct node* head,int count)
         {
             prev = temp;
             temp = temp->next;
+            i++;
         }
         prev->next = temp->next;
         temp->next = 0;
