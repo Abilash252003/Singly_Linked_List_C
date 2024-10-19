@@ -283,7 +283,7 @@ struct node* delete_at_any_pos(struct node* head,int count)
     }
     else
     {
-        int pos; struct node *prev=0;
+        struct node *prev=0;
         
         int i=1;
         
