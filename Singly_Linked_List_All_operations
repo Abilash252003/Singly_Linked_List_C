@@ -373,7 +373,8 @@ struct node* reverse_of_singly_Linked_List_from_position(struct node* head,int c
 
 struct node* swap_of_two_elements_singly_Linked_List_from_position(struct node* head,int count,int pos)
 {
-   if(head==0 || head->next==0)
+   struct node *temp, *first, *second, *nextnode;
+   if(head==0 || head->next==0 || pos==count)
     {
         head = head;
     }
@@ -387,17 +388,39 @@ struct node* swap_of_two_elements_singly_Linked_List_from_position(struct node* 
         {
             printf("\"Invalid Position\"\n");
         }
+        else if(pos==count-1)
+        {
+            temp = 0, first = 0, second = head;
+            while(second->next!=0)
+            {
+                temp = first;
+                first = second;
+                second=first->next;
+            }
+            temp->next = second;
+            second->next = first;
+            first->next  = 0;
+        }
+        else if(pos==1)
+        {
+            first = head;
+            second = head->next;
+            
+            first->next = second->next;
+            second->next = first;
+            head = second;
+        }
         else
         {
+            temp = head;
             int i=1;
-            struct node *temp=head, *first, *second, *nextnode;
             while(i<pos-1)
             {
                 temp = temp->next;
                 i++;
             }
-            first  = temp->next;
-            second = first->next;
+            first    = temp->next;
+            second   = first->next;
             nextnode = second->next;
             
             second->next = first;
